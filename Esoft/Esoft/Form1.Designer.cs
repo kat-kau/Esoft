@@ -42,11 +42,11 @@
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -86,8 +86,8 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column6,
             this.Column7,
-            this.Column2,
-            this.Column3});
+            this.Column3,
+            this.Column2});
             this.dataGridView1.Location = new System.Drawing.Point(22, 50);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -191,6 +191,15 @@
             this.comboBox1.Size = new System.Drawing.Size(127, 21);
             this.comboBox1.TabIndex = 26;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(102, 13);
+            this.label1.TabIndex = 27;
+            this.label1.Text = "Фильтр по городу:";
+            // 
             // Column6
             // 
             this.Column6.HeaderText = "Название ЖК";
@@ -204,26 +213,17 @@
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Количество домов";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
             // Column3
             // 
             this.Column3.HeaderText = "Город";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             // 
-            // label1
+            // Column2
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(102, 13);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "Фильтр по городу:";
+            this.Column2.HeaderText = "Количество домов";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // Form1
             // 
@@ -251,10 +251,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
@@ -265,6 +261,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column13;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column14;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
     }
 }
 

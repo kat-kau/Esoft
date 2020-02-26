@@ -21,7 +21,14 @@ namespace Esoft
         private void Form1_Load(object sender, EventArgs e)
         {
             //comboBox1.SelectedIndex = 1;
-            using (SqlConnection con = new SqlConnection(@"Data Source = (local); Initial Catalog = basketball; Integrated Security = true"))
+            /*SELECT        houses_in_complexes.name_JK, house_status.JK_construction_status, houses_in_complexes.town,
+            COUNT(*) FROM houses_in_complexes INNER JOIN
+                         house_status ON houses_in_complexes.id = house_status.id_JK
+
+                                GROUP BY houses_in_complexes.name_JK, house_status.JK_construction_status, houses_in_complexes.town */
+
+
+            using (SqlConnection con = new SqlConnection(@"Data Source = 303-17\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 con.Open();
                 SqlCommand com = new SqlCommand("SELECT  PlayerInTeam.ShirtNumber, Player.Name, Position.Name AS Expr1, Player.DateOfBirth, Player.College, Player.JoinYear, PlayerInTeam.Salary " +

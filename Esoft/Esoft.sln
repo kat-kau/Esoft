@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1000
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Esoft", "Esoft\Esoft.csproj", "{125F2D9E-2697-4FA2-B518-ABA79247B4CF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{125F2D9E-2697-4FA2-B518-ABA79247B4CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{125F2D9E-2697-4FA2-B518-ABA79247B4CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{125F2D9E-2697-4FA2-B518-ABA79247B4CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{125F2D9E-2697-4FA2-B518-ABA79247B4CF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9FB85C93-F5A7-4D5B-8629-69DE4D50450C}
+	EndGlobalSection
+EndGlobal

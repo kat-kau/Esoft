@@ -96,5 +96,12 @@ namespace Esoft
                 row.Visible = true;
             }
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            AddJK form = new AddJK();
+            form.Show();
+            this.Hide();
+        }
     }
 }

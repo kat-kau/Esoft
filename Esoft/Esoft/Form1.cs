@@ -20,14 +20,6 @@ namespace Esoft
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //comboBox1.SelectedIndex = 1;
-            /*SELECT        houses_in_complexes.name_JK, house_status.JK_construction_status, houses_in_complexes.town,
-            COUNT(*) FROM houses_in_complexes INNER JOIN
-                         house_status ON houses_in_complexes.id = house_status.id_JK
-
-                                GROUP BY houses_in_complexes.name_JK, house_status.JK_construction_status, houses_in_complexes.town */
-
-
             using (SqlConnection con = new SqlConnection(@"Data Source = 303-17\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 con.Open();
@@ -50,16 +42,58 @@ namespace Esoft
                         case "plan":
                             dataGridView1.Rows[i].Cells[1].Value = "План";
                             break;
+                        case "realiz":
+                            dataGridView1.Rows[i].Cells[1].Value = "Реализация";
+                            break;
                     }
 
                     dataGridView1.Rows[i].Cells[2].Value = dr[2].ToString();
                     dataGridView1.Rows[i].Cells[3].Value = dr[3].ToString();
-
+                    i++;
                     
+                }
+                con.Close();
 
+            }
+            using (SqlConnection con = new SqlConnection(@"Data Source = 303-17\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+            {
+                con.Open();
+                SqlCommand com = new SqlCommand("SELECT       houses_in_complexes.town FROM houses_in_complexes INNER JOIN house_status ON houses_in_complexes.id = house_status.id_JK GROUP BY houses_in_complexes.town ", con);
+
+                SqlDataReader dr = com.ExecuteReader();
+                int i = 0;
+                while (dr.Read())
+                {
+                    comboBox1.Items.Add(dr[0].ToString());
                     i++;
                 }
+                con.Close();
+            }
+        }
 
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           // dataGridView1.Rows.Clear();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                row.Visible = false;
+                if (row.Cells[2].Value.ToString() == comboBox1.Text)
+                    {
+                        row.Visible = true;
+                    }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                row.Visible = true;
             }
         }
     }

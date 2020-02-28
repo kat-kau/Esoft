@@ -37,5 +37,33 @@ namespace Esoft
         {
             Environment.Exit(0);
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            /*
+             INSERT INTO [dbo].[complexes]
+           ([name_JK]
+           ,[town])
+     VALUES
+           ('aaaa', 
+           'aaaa')
+GO
+
+INSERT INTO [dbo].[JK_costs]
+           ([value_added_JK]
+           ,[JK_construction_costs])
+     VALUES
+           (5555, 
+           5555)
+GO
+
+INSERT INTO [dbo].[JK_status]
+           ([JK_construction_status])
+     VALUES
+           ('plan')
+GO
+
+    */
+        }
     }
 }

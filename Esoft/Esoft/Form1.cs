@@ -23,7 +23,7 @@ namespace Esoft
             using (SqlConnection con = new SqlConnection(@"Data Source = 303-17\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 con.Open();
-                SqlCommand com = new SqlCommand("SELECT        houses_in_complexes.name_JK, house_status.JK_construction_status, houses_in_complexes.town, COUNT(*) FROM houses_in_complexes INNER JOIN house_status ON houses_in_complexes.id = house_status.id_JK GROUP BY houses_in_complexes.name_JK, house_status.JK_construction_status, houses_in_complexes.town", con);
+                SqlCommand com = new SqlCommand("SELECT        complexes.name_JK, JK_status.JK_construction_status, complexes.town, COUNT(*) FROM            JK_status INNER JOIN complexes ON JK_status.id_JK = complexes.id INNER JOIN houses_in_complexes ON complexes.id = houses_in_complexes.id_JK GROUP BY complexes.name_JK, JK_status.JK_construction_status, complexes.town, houses_in_complexes.id_JK", con);
 
                 SqlDataReader dr = com.ExecuteReader();
                 int i = 0;
@@ -58,7 +58,7 @@ namespace Esoft
             using (SqlConnection con = new SqlConnection(@"Data Source = 303-17\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 con.Open();
-                SqlCommand com = new SqlCommand("SELECT       houses_in_complexes.town FROM houses_in_complexes INNER JOIN house_status ON houses_in_complexes.id = house_status.id_JK GROUP BY houses_in_complexes.town ", con);
+                SqlCommand com = new SqlCommand("SELECT        complexes.name_JK, JK_status.JK_construction_status, complexes.town, COUNT(*) FROM            JK_status INNER JOIN complexes ON JK_status.id_JK = complexes.id INNER JOIN houses_in_complexes ON complexes.id = houses_in_complexes.id_JK GROUP BY complexes.name_JK, JK_status.JK_construction_status, complexes.town, houses_in_complexes.id_JK", con);
 
                 SqlDataReader dr = com.ExecuteReader();
                 int i = 0;

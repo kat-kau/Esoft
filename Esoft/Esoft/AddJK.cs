@@ -20,7 +20,7 @@ namespace Esoft
 
         private void AddJK_FormClosed(object sender, FormClosedEventArgs e)
         {
-           
+
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -33,7 +33,7 @@ namespace Esoft
             Form1 child = new Form1();
             child.Show();
             this.Close();
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -46,7 +46,7 @@ namespace Esoft
             using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 try
-                {
+               {
                     con.Open();
 
 
@@ -67,22 +67,41 @@ namespace Esoft
                     }
 
 
-                    
-                        if (status != "" || textBox1.Text != "" || textBox2.Text != "" || textBox3.Text != "" || textBox3.Text != "") 
+
+                    if (status == "" || textBox1.Text == "" || textBox2.Text == "" || textBox3.Text == "" || textBox4.Text == "")
+                    {
+                        MessageBox.Show("Пожалуйста, заполните все поля!");
+                    }
+                    else
+                    {
+                    try
+                    {
+                        Convert.ToInt64(textBox2.Text);
+                    }
+                    catch (OverflowException E)
+                    {
+                        MessageBox.Show("Коэффициент добавочной стоимости не должен превышать " + Int64.MaxValue.ToString());
+                    }
+
+                        try
                         {
-                            SqlCommand com = new SqlCommand(" INSERT INTO [dbo].[complexes] ([name_JK],[town]) VALUES ('" + textBox1.Text + "',  '" + textBox4.Text + "'); INSERT INTO [dbo].[JK_costs] ([value_added_JK],[JK_construction_costs]) VALUES (" + textBox2.Text + ", " + textBox3.Text + "); INSERT INTO [dbo].[JK_status] ([JK_construction_status]) VALUES ('" + status + "');", con);
-                            com.ExecuteNonQuery();
-                            MessageBox.Show("Жилой комплекс добавлен", "Все прошло успешно!", MessageBoxButtons.OK);
-                            con.Close();
+                            Convert.ToInt64(textBox3.Text);
                         }
-                        else
+                        catch (OverflowException E)
                         {
-                            MessageBox.Show("Пожалуйста, заполните все поля!");
+                            MessageBox.Show("Затраты на строительство жилищного комплекса не должены превышать " + Int64.MaxValue.ToString());
                         }
-                    
-                } catch (Exception E)
+
+                        SqlCommand com = new SqlCommand(" INSERT INTO [dbo].[complexes] ([name_JK],[town]) VALUES ('" + textBox1.Text + "',  '" + textBox4.Text + "'); INSERT INTO [dbo].[JK_costs] ([value_added_JK],[JK_construction_costs]) VALUES (" + textBox2.Text + ", " + textBox3.Text + "); INSERT INTO [dbo].[JK_status] ([JK_construction_status]) VALUES ('" + status + "');", con);
+                        com.ExecuteNonQuery();
+                        MessageBox.Show("Жилой комплекс добавлен", "Все прошло успешно!", MessageBoxButtons.OK);
+                        con.Close();
+                    }
+
+                }
+               catch (Exception E)
                 {
-                    MessageBox.Show("Произошла ошибка: "+E.Message);
+                    //MessageBox.Show("Произошла ошибка: " + E.Message);
                 }
             }
         }
@@ -94,7 +113,7 @@ namespace Esoft
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            
+
         }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)

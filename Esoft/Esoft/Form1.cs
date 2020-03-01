@@ -23,7 +23,7 @@ namespace Esoft
             using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 con.Open();
-                SqlCommand com = new SqlCommand("SELECT        complexes.name_JK, JK_status.JK_construction_status, complexes.town, (SELECT COUNT([id_JK]) from [dbo].houses_in_complexes WHERE  complexes.id = houses_in_complexes.id_JK) FROM            complexes INNER JOIN JK_status ON complexes.id = JK_status.id_JK; ", con);
+                SqlCommand com = new SqlCommand("SELECT        complexes.id, complexes.name_JK, JK_status.JK_construction_status, complexes.town, (SELECT COUNT([id_JK]) from [dbo].houses_in_complexes WHERE  complexes.id = houses_in_complexes.id_JK) FROM            complexes INNER JOIN JK_status ON complexes.id = JK_status.id_JK; ", con);
 
                 SqlDataReader dr = com.ExecuteReader();
                 int i = 0;
@@ -32,23 +32,23 @@ namespace Esoft
 
                     dataGridView1.Rows.Add();
                     dataGridView1.Rows[i].Cells[0].Value = dr[0].ToString();
-                    
+                    dataGridView1.Rows[i].Cells[1].Value = dr[1].ToString();
 
-                    switch (dr[1].ToString())
+                    switch (dr[2].ToString())
                     {
                         case "built":
-                            dataGridView1.Rows[i].Cells[1].Value = "Строительство";
+                            dataGridView1.Rows[i].Cells[2].Value = "Строительство";
                             break;
                         case "plan":
-                            dataGridView1.Rows[i].Cells[1].Value = "План";
+                            dataGridView1.Rows[i].Cells[2].Value = "План";
                             break;
                         case "realiz":
-                            dataGridView1.Rows[i].Cells[1].Value = "Реализация";
+                            dataGridView1.Rows[i].Cells[2].Value = "Реализация";
                             break;
                     }
 
-                    dataGridView1.Rows[i].Cells[2].Value = dr[2].ToString();
                     dataGridView1.Rows[i].Cells[3].Value = dr[3].ToString();
+                    dataGridView1.Rows[i].Cells[4].Value = dr[4].ToString();
                     i++;
                     
                 }
@@ -78,12 +78,10 @@ namespace Esoft
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-           // dataGridView1.Rows.Clear();
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 row.Visible = false;
-                //MessageBox.Show(row.Cells[2].Value.ToString());
-                if (row.Cells[2].Value.ToString() == comboBox1.Text)
+                if (row.Cells[3].Value.ToString() == comboBox1.Text)
                     {
                         row.Visible = true;
                     }
@@ -112,7 +110,24 @@ namespace Esoft
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //DELETE FROM [dbo].[JK_costs] WHERE id_JK = 25
+            string del = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            //MessageBox.Show(del);
+             using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+             {
+                 con.Open();
+                
+                 SqlCommand com = new SqlCommand("DELETE FROM [dbo].[JK_status] WHERE id_JK = "+del+ "; DELETE FROM [dbo].[JK_costs] WHERE id_JK = " + del + ";  DELETE FROM [dbo].[complexes] WHERE id = " + del + ";",con);
+                 com.ExecuteNonQuery();
+                 con.Close();
+             }
+
+            int delet = dataGridView1.SelectedCells[0].RowIndex;
+            dataGridView1.Rows.RemoveAt(delet);
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
         }
     }
 }

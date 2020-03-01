@@ -52,6 +52,12 @@
     <Compile Include="AddJK.Designer.cs">
       <DependentUpon>AddJK.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditJK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditJK.Designer.cs">
+      <DependentUpon>EditJK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

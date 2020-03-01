@@ -18,6 +18,8 @@ namespace Esoft
             InitializeComponent();
         }
 
+        public string ID = "";
+
         private void Form1_Load(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
@@ -110,6 +112,7 @@ namespace Esoft
 
         private void button4_Click(object sender, EventArgs e)
         {
+            //УДАЛЕНИЕ ЖК С ДОМАМИ НЕ РАБОТАЕТ, ТОЛЬКО БЕЗ ДОМОВ
             string del = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             //MessageBox.Show(del);
              using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
@@ -128,6 +131,15 @@ namespace Esoft
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+            EditJK g = new EditJK();
+            g.Show(this);
+            this.Hide();
+            
         }
     }
 }

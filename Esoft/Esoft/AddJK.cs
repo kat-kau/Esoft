@@ -45,11 +45,45 @@ namespace Esoft
         {
             using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
-                con.Open();
-                SqlCommand com = new SqlCommand(" INSERT INTO [dbo].[complexes] ([name_JK],[town]) VALUES ('"+textBox1.Text+"',  'aaaa'); INSERT INTO [dbo].[JK_costs] ([value_added_JK],[JK_construction_costs]) VALUES (5555, 5555); INSERT INTO [dbo].[JK_status] ([JK_construction_status]) VALUES ('plan');", con);
-                com.ExecuteNonQuery();
-                MessageBox.Show("Жилой комплекс добавлен", "Все прошло успешно!", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                con.Close();
+                try
+                {
+                    con.Open();
+
+
+                    string status = "";
+                    switch (comboBox1.Text)
+                    {
+                        case ("План"):
+                            status = "plan";
+                            break;
+
+                        case ("Строительство"):
+                            status = "built";
+                            break;
+
+                        case ("Реализация"):
+                            status = "realiz";
+                            break;
+                    }
+
+
+                    
+                        if (status != "" || textBox1.Text != "" || textBox2.Text != "" || textBox3.Text != "" || textBox3.Text != "") 
+                        {
+                            SqlCommand com = new SqlCommand(" INSERT INTO [dbo].[complexes] ([name_JK],[town]) VALUES ('" + textBox1.Text + "',  '" + textBox4.Text + "'); INSERT INTO [dbo].[JK_costs] ([value_added_JK],[JK_construction_costs]) VALUES (" + textBox2.Text + ", " + textBox3.Text + "); INSERT INTO [dbo].[JK_status] ([JK_construction_status]) VALUES ('" + status + "');", con);
+                            com.ExecuteNonQuery();
+                            MessageBox.Show("Жилой комплекс добавлен", "Все прошло успешно!", MessageBoxButtons.OK);
+                            con.Close();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Пожалуйста, заполните все поля!");
+                        }
+                    
+                } catch (Exception E)
+                {
+                    MessageBox.Show("Произошла ошибка: "+E.Message);
+                }
             }
         }
 
@@ -67,6 +101,11 @@ namespace Esoft
         {
             if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8)
                 e.Handled = true;
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar <= 47 || e.KeyChar >= 58) && e.KeyChar != 8) e.Handled = true;
         }
     }
 }

@@ -109,5 +109,10 @@ namespace Esoft
         {
             Environment.Exit(0);
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //DELETE FROM [dbo].[JK_costs] WHERE id_JK = 25
+        }
     }
 }

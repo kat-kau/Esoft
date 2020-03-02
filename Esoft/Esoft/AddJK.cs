@@ -46,7 +46,7 @@ namespace Esoft
             using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 try
-               {
+                {
                     con.Open();
 
 
@@ -74,14 +74,14 @@ namespace Esoft
                     }
                     else
                     {
-                    try
-                    {
-                        Convert.ToInt64(textBox2.Text);
-                    }
-                    catch (OverflowException E)
-                    {
-                        MessageBox.Show("Коэффициент добавочной стоимости не должен превышать " + Int64.MaxValue.ToString());
-                    }
+                        try
+                        {
+                            Convert.ToInt64(textBox2.Text);
+                        }
+                        catch (OverflowException E)
+                        {
+                            MessageBox.Show("Коэффициент добавочной стоимости не должен превышать " + Int64.MaxValue.ToString());
+                        }
 
                         try
                         {
@@ -99,7 +99,7 @@ namespace Esoft
                     }
 
                 }
-               catch (Exception E)
+                catch (Exception E)
                 {
                     //MessageBox.Show("Произошла ошибка: " + E.Message);
                 }

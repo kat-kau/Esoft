@@ -52,7 +52,7 @@ namespace Esoft
                     dataGridView1.Rows[i].Cells[3].Value = dr[3].ToString();
                     dataGridView1.Rows[i].Cells[4].Value = dr[4].ToString();
                     i++;
-                    
+
                 }
                 con.Close();
 
@@ -84,9 +84,9 @@ namespace Esoft
             {
                 row.Visible = false;
                 if (row.Cells[3].Value.ToString() == comboBox1.Text)
-                    {
-                        row.Visible = true;
-                    }
+                {
+                    row.Visible = true;
+                }
             }
         }
 
@@ -112,17 +112,18 @@ namespace Esoft
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //УДАЛЕНИЕ ЖК С ДОМАМИ НЕ РАБОТАЕТ, ТОЛЬКО БЕЗ ДОМОВ
+            //УДАЛЕНИЕ ЖК С ДОМАМИ НЕ РАБОТАЕТ, ТОЛЬКО БЕЗ ДОМОВ. Попытки удалить записи в связанных таблицах успехами не увенчались
+            
             string del = dataGridView1.CurrentRow.Cells[0].Value.ToString();
             //MessageBox.Show(del);
-             using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
-             {
-                 con.Open();
-                
-                 SqlCommand com = new SqlCommand("DELETE FROM [dbo].[JK_status] WHERE id_JK = "+del+ "; DELETE FROM [dbo].[JK_costs] WHERE id_JK = " + del + ";  DELETE FROM [dbo].[complexes] WHERE id = " + del + ";",con);
-                 com.ExecuteNonQuery();
-                 con.Close();
-             }
+            using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+            {
+                con.Open();
+
+                SqlCommand com = new SqlCommand("DELETE FROM [dbo].[JK_status] WHERE id_JK = " + del + "; DELETE FROM [dbo].[JK_costs] WHERE id_JK = " + del + ";  DELETE FROM [dbo].[complexes] WHERE id = " + del + ";", con);
+                com.ExecuteNonQuery();
+                con.Close();
+            }
 
             int delet = dataGridView1.SelectedCells[0].RowIndex;
             dataGridView1.Rows.RemoveAt(delet);
@@ -139,7 +140,7 @@ namespace Esoft
             EditJK g = new EditJK();
             g.Show(this);
             this.Hide();
-            
+
         }
     }
 }

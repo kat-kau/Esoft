@@ -98,8 +98,7 @@ namespace Esoft
                         con.Close();
                     }
 
-                }
-                catch (Exception E)
+                }               catch (Exception E)
                 {
                     //MessageBox.Show("Произошла ошибка: " + E.Message);
                 }

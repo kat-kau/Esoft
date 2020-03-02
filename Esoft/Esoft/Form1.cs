@@ -136,11 +136,15 @@ namespace Esoft
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            EditJK g = new EditJK();
-            g.Show(this);
-            this.Hide();
 
+            try
+            {
+                ID = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                EditJK g = new EditJK();
+                g.Show(this);
+                this.Hide();
+            }
+            catch (Exception E) { }
         }
     }
 }

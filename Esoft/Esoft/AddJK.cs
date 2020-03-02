@@ -43,6 +43,7 @@ namespace Esoft
 
         private void button3_Click(object sender, EventArgs e)
         {
+            try { 
             using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 try
@@ -102,6 +103,11 @@ namespace Esoft
                 {
                     //MessageBox.Show("Произошла ошибка: " + E.Message);
                 }
+            }
+            }
+            catch (System.Data.SqlClient.SqlException E)
+            {
+                MessageBox.Show("Внимание, возникла ошибка: " + E.Message);
             }
         }
 

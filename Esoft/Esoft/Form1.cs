@@ -22,10 +22,12 @@ namespace Esoft
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+            try
+            {
+                using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 con.Open();
-                SqlCommand com = new SqlCommand("SELECT        complexes.id, complexes.name_JK, JK_status.JK_construction_status, complexes.town, (SELECT COUNT([id_JK]) from [dbo].houses_in_complexes WHERE  complexes.id = houses_in_complexes.id_JK) FROM            complexes INNER JOIN JK_status ON complexes.id = JK_status.id_JK; ", con);
+                SqlCommand com = new SqlCommand("SELECT        complexes.id, complexes.name_JK, JK_status.JK_construction_status, complexes.town, (SELECT COUNT([id_JK]) from [dbo].houses_in_complexes WHERE  complexes.id = houses_in_complexes.id_JK) FROM            complexes INNER JOIN JK_status ON complexes.id = JK_status.id_JK WHERE complexes.deleted = 0; ", con);
 
                 SqlDataReader dr = com.ExecuteReader();
                 int i = 0;
@@ -57,19 +59,32 @@ namespace Esoft
                 con.Close();
 
             }
-            using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+            }
+            catch (System.Data.SqlClient.SqlException E)
             {
-                con.Open();
-                SqlCommand com = new SqlCommand("SELECT        town FROM            complexes GROUP BY town", con);
+                MessageBox.Show("Внимание, возникла ошибка: " + E.Message);
+            }
 
-                SqlDataReader dr = com.ExecuteReader();
-                int i = 0;
-                while (dr.Read())
+            try
+            {
+                using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
                 {
-                    comboBox1.Items.Add(dr[0].ToString());
-                    i++;
+                    con.Open();
+                    SqlCommand com = new SqlCommand("SELECT        town FROM            complexes GROUP BY town", con);
+
+                    SqlDataReader dr = com.ExecuteReader();
+                    int i = 0;
+                    while (dr.Read())
+                    {
+                        comboBox1.Items.Add(dr[0].ToString());
+                        i++;
+                    }
+                    con.Close();
                 }
-                con.Close();
+            }
+            catch (System.Data.SqlClient.SqlException E)
+            {
+                MessageBox.Show("Внимание, возникла ошибка: " + E.Message);
             }
         }
 
@@ -112,22 +127,43 @@ namespace Esoft
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //УДАЛЕНИЕ ЖК С ДОМАМИ НЕ РАБОТАЕТ, ТОЛЬКО БЕЗ ДОМОВ. Попытки удалить записи в связанных таблицах успехами не увенчались
-            
-            string del = dataGridView1.CurrentRow.Cells[0].Value.ToString();
-            //MessageBox.Show(del);
-            using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+
+            DialogResult resualt = MessageBox.Show("Удалить ЖК?", "Удаление", MessageBoxButtons.OKCancel);
+
+            if(resualt.ToString() == "OK")
             {
-                con.Open();
+                string del = dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                //MessageBox.Show(del);
 
-                SqlCommand com = new SqlCommand("DELETE FROM [dbo].[JK_status] WHERE id_JK = " + del + "; DELETE FROM [dbo].[JK_costs] WHERE id_JK = " + del + ";  DELETE FROM [dbo].[complexes] WHERE id = " + del + ";", con);
-                com.ExecuteNonQuery();
-                con.Close();
+                int houseNum = Convert.ToInt32(dataGridView1.CurrentRow.Cells[4].Value.ToString());
+
+                if (houseNum == 0)
+                {
+                    try
+                    {
+                        using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+                        {
+                            con.Open();
+
+                            SqlCommand com = new SqlCommand("UPDATE [dbo].[complexes] SET [deleted] = 1 WHERE id=" + del + ";", con);
+                            com.ExecuteNonQuery();
+                            con.Close();
+                        }
+
+                        int delet = dataGridView1.SelectedCells[0].RowIndex;
+                        dataGridView1.Rows.RemoveAt(delet);
+                    }
+                    catch (System.Data.SqlClient.SqlException E)
+                    {
+                        MessageBox.Show("Внимание, возникла ошибка: " + E.Message);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Внимание, нельзя удалить ЖК, в котором есть дома!");
+                }
             }
-
-            int delet = dataGridView1.SelectedCells[0].RowIndex;
-            dataGridView1.Rows.RemoveAt(delet);
-
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

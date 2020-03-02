@@ -23,7 +23,9 @@ namespace Esoft
             Form1 g = (Form1)this.Owner;
             //MessageBox.Show(g.ID);
 
-            using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+            try
+            {
+                using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 con.Open();
                 SqlCommand com = new SqlCommand("SELECT        complexes.name_JK, complexes.town, JK_costs.value_added_JK, JK_costs.JK_construction_costs, JK_status.JK_construction_status FROM            complexes INNER JOIN JK_costs ON complexes.id = JK_costs.id_JK INNER JOIN JK_status ON complexes.id = JK_status.id_JK WHERE complexes.id = " + g.ID + " and JK_costs.id_JK = " + g.ID + " and JK_status.id_JK = " + g.ID + "", con);
@@ -58,6 +60,11 @@ namespace Esoft
                 con.Close();
 
             }
+            }
+            catch (System.Data.SqlClient.SqlException E)
+            {
+                MessageBox.Show("Внимание, возникла ошибка: " + E.Message);
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -65,7 +72,9 @@ namespace Esoft
 
             Form1 g = (Form1)this.Owner;
 
-            using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
+            try
+            {
+                using (SqlConnection con = new SqlConnection(@"Data Source = .\SQLSERVER; Initial Catalog = Esoft; Integrated Security = true"))
             {
                 try
                 {
@@ -125,6 +134,11 @@ namespace Esoft
                 {
                     //MessageBox.Show("Произошла ошибка: " + E.Message);
                 }
+            }
+            }
+            catch (System.Data.SqlClient.SqlException E)
+            {
+                MessageBox.Show("Внимание, возникла ошибка: " + E.Message);
             }
         }
 
